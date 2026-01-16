@@ -1,0 +1,102 @@
+<div class="user-profile-wrapper">
+  <section
+    class="mx-auto flex flex-col gap-6 rounded-xl border border-neutral-200 bg-white
+          p-8 shadow-xl shadow-neutral-400/30 sm:w-96"
+    aria-labelledby="dashboard-title"
+  >
+    <header class="flex flex-col gap-6">
+      <div class="flex justify-center">
+        <span
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100"
+          aria-hidden="true"
+        >
+          <lucide-icon
+            [img]="userCheckIcon"
+            class="text-xl text-neutral-500"
+          ></lucide-icon>
+        </span>
+      </div>
+
+      <div class="flex flex-col items-center gap-2">
+        <h1
+          id="dashboard-title"
+          class="text-2xl font-semibold text-neutral-900"
+        >
+          Bem-vindo de volta!
+        </h1>
+        <p class="text-neutral-500">
+          Você está autenticado no sistema
+        </p>
+      </div>
+    </header>
+
+    <article
+      class="rounded-lg bg-neutral-50 border border-neutral-200 p-4"
+      aria-labelledby="user-name"
+      aria-describedby="user-email"
+    >
+      <div class="flex items-center gap-4">
+        <span
+          class="flex h-10 w-10 items-center justify-center rounded-full
+                bg-neutral-200 text-sm font-semibold text-neutral-800"
+          aria-hidden="true"
+        >
+          {{ userInitial() }}
+        </span>
+
+        <div class="flex flex-col">
+          <p class="font-medium text-neutral-900" id="user-name">
+            {{ userProfile()?.name }}
+          </p>
+          <p class="text-sm text-neutral-500" id="user-email">
+            {{ userProfile()?.email }}
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="mt-6">
+      <h2 class="mb-2 text-lg font-semibold text-neutral-900">
+        Lista de usuários
+      </h2>
+
+      <ul
+        class="rounded-lg border border-neutral-200 bg-white
+              divide-y divide-neutral-200"
+      >
+        <li
+          *ngFor="let user of usersList()"
+          class="flex items-center justify-between p-3"
+        >
+          <span class="text-neutral-900">
+            {{ user.name }}
+          </span>
+          <span class="text-sm text-neutral-500">
+            {{ user.email }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      type="button"
+      class="mt-6 w-full cursor-pointer rounded-[0.625rem]
+            bg-neutral-900 px-4 py-2 font-medium text-white
+            transition duration-200 ease-in-out
+            hover:bg-neutral-800
+            focus:ring-2 focus:ring-neutral-300
+            focus:ring-offset-2 focus:ring-offset-white
+            focus:outline-none"
+      (click)="openLogoutDialog()"
+    >
+      Sair da conta
+    </button>
+  </section>
+
+  <app-logout-dialog
+    [isDialogOpen]="isLogoutDialogOpen()"
+    [isLoading]="isLoggingOut()"
+    (closed)="closeLogoutDialog()"
+    (confirmed)="handleLogout()"
+  ></app-logout-dialog>
+</div>

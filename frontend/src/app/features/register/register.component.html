@@ -1,0 +1,127 @@
+<div class="register-wrapper">
+  <section
+    class="flex flex-col gap-6 rounded-xl border border-neutral-200 bg-white p-6 sm:w-96
+           shadow-xl shadow-neutral-400/30"
+  >
+    <header class="flex flex-col gap-6">
+      <div class="flex justify-center">
+        <span
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100"
+          aria-hidden="true"
+        >
+          <lucide-icon
+            [img]="userPlusIcon"
+            class="text-xl text-neutral-500"
+          ></lucide-icon>
+        </span>
+      </div>
+
+      <div class="flex flex-col items-center gap-2">
+        <h1 class="text-2xl font-semibold text-neutral-900">
+          Crie uma conta
+        </h1>
+        <p class="text-neutral-500">
+          Preencha os detalhes abaixo
+        </p>
+      </div>
+    </header>
+
+    @if (registerError()) {
+      <div
+        class="rounded-[0.625rem] border border-red-300 bg-red-50 px-3 py-2
+               text-center text-sm text-red-600"
+        role="alert"
+      >
+        {{ registerError() }}
+      </div>
+    }
+
+    <form class="flex flex-col gap-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+      @for (field of fields; track $index) {
+        <div class="flex flex-col gap-2">
+          <label
+            [for]="field.controlName"
+            class="text-sm font-medium text-neutral-700"
+          >
+            {{ field.label }}
+          </label>
+
+          <input
+            [id]="field.controlName"
+            [type]="field.type"
+            [formControlName]="field.controlName"
+            class="w-full rounded-[0.625rem] border border-neutral-300 bg-white px-3 py-2
+                   text-sm text-neutral-900 placeholder-neutral-400 transition
+                   focus:border-neutral-400 focus:ring-2 focus:ring-neutral-300
+                   focus:outline-none"
+            [attr.placeholder]="field.placeholder"
+            [attr.autocomplete]="field.autocomplete"
+          />
+
+          @if (
+            form.get(field.controlName)?.invalid &&
+            (form.get(field.controlName)?.dirty ||
+              form.get(field.controlName)?.touched)
+          ) {
+            <span class="text-xs text-red-500" role="alert">
+              {{ field.error }}
+            </span>
+          } @else if (
+            field.controlName === 'confirmPassword' &&
+            form.hasError('passwordMismatch') &&
+            (form.get(field.controlName)?.dirty ||
+              form.get(field.controlName)?.touched) &&
+            form.get(field.controlName)?.value
+          ) {
+            <span class="text-xs text-red-500" role="alert">
+              As senhas não coincidem
+            </span>
+          }
+        </div>
+      }
+
+      <button
+        type="submit"
+        class="w-full rounded-[0.625rem] px-4 py-2 font-medium transition
+               duration-200 ease-in-out focus:ring-2 focus:ring-neutral-300
+               focus:ring-offset-2 focus:ring-offset-white focus:outline-none"
+        [class.bg-neutral-900]="!isDisabled()"
+        [class.text-white]="!isDisabled()"
+        [class.hover:bg-neutral-800]="!isDisabled()"
+        [class.cursor-pointer]="!isDisabled()"
+        [class.bg-neutral-300]="isDisabled()"
+        [class.text-neutral-600]="isDisabled()"
+        [class.cursor-not-allowed]="isDisabled()"
+        [class.cursor-wait]="isLoading()"
+        [disabled]="isDisabled()"
+      >
+        @if (isLoading()) {
+          <div class="flex items-center justify-center gap-2">
+            <lucide-icon
+              [img]="loaderCircleIcon"
+              class="h-4 w-4 animate-spin text-neutral-500"
+              aria-hidden="true"
+            />
+            <span>Criando...</span>
+          </div>
+        } @else {
+          Criar conta
+        }
+      </button>
+    </form>
+
+    <footer class="flex justify-center gap-2">
+      <span class="text-sm text-neutral-500">
+        Já tem uma conta?
+      </span>
+      <a
+        routerLink="/login"
+        id="show-login"
+        class="cursor-pointer text-sm font-medium text-neutral-700 transition
+               hover:text-neutral-900 hover:underline"
+      >
+        Faça login
+      </a>
+    </footer>
+  </section>
+</div>

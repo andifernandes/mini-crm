@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="card">
+    <h2 class="titulo">Endereços</h2>
+
+    <!-- Botão para abrir o dialog -->
+    <button pButton label="Novo Endereço" icon="pi pi-plus" class="mb-3" (click)="novoEndereco()"></button>
+
+    <!-- Tabela de endereços -->
+    <p-table [value]="enderecos" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>CEP</th>
+          <th>Logradouro</th>
+          <th>Bairro</th>
+          <th>Localidade</th>
+          <th>UF</th>
+          <th>Complemento</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-endereco>
+        <tr>
+          <td>{{ endereco.cep }}</td>
+          <td>{{ endereco.logradouro }}</td>
+          <td>{{ endereco.bairro }}</td>
+          <td>{{ endereco.localidade }}</td>
+          <td>{{ endereco.uf }}</td>
+          <td>{{ endereco.complemento }}</td>
+          <td>
+            <button type="button" class="btn-editar" (click)="editarEndereco(endereco)">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button type="button" class="btn-excluir" (click)="remover(endereco.id)">
+              <i class="pi pi-times"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- Dialog para criar/editar endereço -->
+    <p-dialog
+      header="{{ isEditing() ? 'Editar Endereço' : 'Novo Endereço' }}"
+      [(visible)]="dialogVisible"
+      [modal]="true"
+      [closable]="true"
+      [resizable]="false"
+      [style]="{ width: '450px' }"
+    >
+      <form [formGroup]="form" class="p-fluid">
+        <div class="p-field" style="display:flex; align-items:center; gap:0.5rem;">
+          <p-toast></p-toast>
+          <label for="cep">CEP</label>
+          <input id="cep" type="text" pInputText formControlName="cep" />
+          <i *ngIf="loading" class="pi pi-spin pi-spinner" style="margin-left: 0.5rem; margin-right: 0.5rem"></i>
+          <button type="button" pButton icon="pi pi-search" (click)="buscarCep()" class="p-button-outlined"></button>          
+        </div>
+
+        <div class="p-field">
+          <label for="logradouro">Logradouro</label>
+          <input id="logradouro" type="text" pInputText formControlName="logradouro" />
+        </div>
+        <div class="p-field">
+          <label for="bairro">Bairro</label>
+          <input id="bairro" type="text" pInputText formControlName="bairro" />
+        </div>
+        <div class="p-field">
+          <label for="localidade">Localidade</label>
+          <input id="localidade" type="text" pInputText formControlName="localidade" />
+        </div>
+        <div class="p-field">
+          <label for="uf">UF</label>
+          <input id="uf" type="text" pInputText formControlName="uf" />
+        </div>
+        <div class="p-field">
+          <label for="complemento">Complemento</label>
+          <input id="complemento" type="text" pInputText formControlName="complemento" />
+        </div>
+
+        <div style="display:flex; gap:0.5rem; justify-content:flex-end; margin-top:1rem;">
+          <button pButton label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="dialogVisible = false" type="button"></button>
+          <button pButton label="Salvar" icon="pi pi-check" (click)="save()" type="button"></button>
+        </div>
+
+      </form>
+    </p-dialog>
+  </div>
+</div>

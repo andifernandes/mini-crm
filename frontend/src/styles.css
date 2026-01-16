@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
+@import "tailwindcss";
+
+body {
+  @apply min-h-screen items-center justify-center bg-neutral-100 p-4;
+  font-family: "Geist", sans-serif;
+  --margin-top: 45px;
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: -100px;
+}
+
+.register-wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: -18px;
+}
+
+.user-profile-wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: 10px;
+}

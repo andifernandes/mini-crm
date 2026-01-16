@@ -1,0 +1,105 @@
+/* src/app/shared/header/header.component.css */
+
+.logo {
+  font-weight: bold;
+  color: rgb(73, 70, 70);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+/* Menubar fixa no topo */
+:host ::ng-deep .p-menubar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Espaço para não esconder o conteúdo */
+:host ::ng-deep app-root + * {
+  padding-top: 60px;
+}
+
+/* Espaçamento dos botões */
+:host ::ng-deep .p-menubar-end .p-button {
+  margin-right: 1rem;
+}
+
+/* Logo no menubar */
+:host ::ng-deep .p-menubar .logo {
+  font-weight: bold;
+  color: #413e3e;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+/* Itens do menu */
+:host ::ng-deep
+  .p-menubar-root-list
+  > li.p-menubar-item
+  a.p-menubar-item-link {
+  color: #252525 !important;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover itens menu */
+:host ::ng-deep
+  .p-menubar-root-list
+  > li.p-menubar-item
+  a.p-menubar-item-link:hover {
+  background-color: #353553;
+  color: #ffd700 !important;
+}
+
+/* Ícones do menu */
+:host ::ng-deep .p-menubar-item-icon {
+  color: #353232;
+  margin-right: 0.4rem;
+}
+
+/* =========================
+   Botão SAIR (inalterado)
+========================= */
+:host ::ng-deep .p-menubar-end .p-button.p-button-danger {
+  background-color: #ff4d4f;
+  border: none;
+  color: rgb(65, 62, 62);
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+:host ::ng-deep .p-menubar-end .p-button.p-button-danger:hover {
+  background-color: #d9363e;
+}
+
+/* =========================
+   Botão USUÁRIO (só cor)
+========================= */
+:host ::ng-deep .btn-user.p-button {
+  background-color: #e3f2fd; /* azul claro */
+  border: 1px solid #90caf9;
+  color: #1565c0;
+}
+
+/* ícone */
+:host ::ng-deep .btn-user.p-button .p-button-icon {
+  color: #1565c0;
+}
+
+/* hover */
+:host ::ng-deep .btn-user.p-button:hover {
+  background-color: #bbdefb;
+  border-color: #64b5f6;
+  color: #0d47a1;
+}
+
+:host ::ng-deep .btn-user.p-button:hover .p-button-icon {
+  color: #0d47a1;
+}

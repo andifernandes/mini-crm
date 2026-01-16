@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="card">
+    <h2 class="titulo">Pessoa Jurídica</h2>
+
+    <button
+      pButton
+      label="Nova Pessoa"
+      icon="pi pi-plus"
+      class="mb-3"
+      (click)="novaPessoa()"
+    ></button>
+
+    <p-table [value]="pessoas" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Razão Social</th>
+          <th>CNPJ</th>
+          <th>Telefone</th>
+          <th>Email</th>
+          <th>Endereço</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-pessoa>
+        <tr>
+          <td>{{ pessoa.razaoSocial }}</td>
+          <td>{{ pessoa.cnpj }}</td>
+          <td>{{ pessoa.telefone }}</td>
+          <td>{{ pessoa.email }}</td>
+          <td>{{ pessoa.endereco?.logradouro }}</td>
+          <td>
+            <button class="btn-editar" (click)="editarPessoa(pessoa)">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button class="btn-excluir" (click)="remover(pessoa.id!)">
+              <i class="pi pi-times"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <p-dialog
+      header="{{ isEditing() ? 'Editar Pessoa Jurídica' : 'Nova Pessoa Jurídica' }}"
+      [(visible)]="dialogVisible"
+      [modal]="true"
+      [resizable]="false"
+      [style]="{ width: '450px' }"
+    >
+      <form [formGroup]="form" class="p-fluid">
+        <div class="p-field">
+          <label>Razão Social</label>
+          <input pInputText formControlName="razaoSocial" />
+        </div>
+
+        <div class="p-field">
+          <label>Endereço</label>
+          <p-dropdown
+            [options]="enderecos"
+            optionLabel="logradouro"
+            optionValue="id"
+            formControlName="enderecoId"
+            placeholder="Selecione o endereço"
+          ></p-dropdown>
+        </div>
+
+        <div class="p-field">
+          <label>CNPJ</label>
+          <input pInputText formControlName="cnpj" />
+        </div>
+
+        <div class="p-field">
+          <label>Telefone</label>
+          <input pInputText formControlName="telefone" />
+        </div>
+
+        <div class="p-field">
+          <label>Email</label>
+          <input pInputText formControlName="email" />
+        </div>
+
+        <div style="display:flex; gap:0.5rem; justify-content:flex-end; margin-top:1rem;">
+          <button pButton label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="dialogVisible = false" type="button"></button>
+          <button pButton label="Salvar" icon="pi pi-check" (click)="salvar()" type="button"></button>
+        </div>
+      </form>
+    </p-dialog>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<p-menubar *ngIf="authService.loggedIn$()" [model]="items">
+  <ng-template pTemplate="start">
+    <a routerLink="/" class="logo">CRM</a>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="flex items-center gap-2">
+      <button
+        pButton
+        label=""
+        icon="pi pi-user"
+        class="btn-user"
+        (click)="userprofile()"
+      ></button>
+      <button
+        pButton
+        label="Sair"
+        icon="pi pi-sign-out"
+        class="p-button-danger"
+        (click)="logout()"
+      ></button>
+    </div>
+  </ng-template>
+</p-menubar>
